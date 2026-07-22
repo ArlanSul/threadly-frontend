@@ -14,10 +14,11 @@ export default function Navbar() {
         <nav style={{ display: 'flex', gap: '1rem', padding: '1rem', borderBottom: '1px solid #ccc' }}>
             <Link to="/">Threadly</Link>
             {user ? (
-            <>
-                <span>Hi, {user.username}</span>
-                <button onClick={handleLogout}>Logout</button>
-            </>
+                <>
+                    <Link to="/create-post">New Post</Link>
+                    <span>Hi, {user.username}</span>
+                    <button onClick={handleLogout}>Logout</button>
+                </>
             ) : (
             <>
                 <Link to="/login">Login</Link>
