@@ -20,3 +20,10 @@ export async function vote(targetType, id, value) {
     const response = await client.post('/votes/', payload);
     return response.data;
 }
+
+export async function createComment(postId, body, parentId = null) {
+    const payload = { post: postId, body };
+    if (parentId) payload.parent = parentId;
+    const response = await client.post('/comments/', payload);
+    return response.data;
+}
