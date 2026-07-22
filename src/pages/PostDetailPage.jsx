@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getPost, createComment } from '../api/posts';
 import { useAuth } from '../context/useAuth';
 import Comment from '../components/Comment';
+import VoteButtons from '../components/VoteButtons';
 
 export default function PostDetailPage() {
     const { id } = useParams();
@@ -40,8 +41,9 @@ export default function PostDetailPage() {
             </div>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
-            <div style={{ fontSize: '0.85rem', color: '#666' }}>
-            ▲ {post.score} · {post.comment_count} comments
+            <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <VoteButtons targetType="post" id={post.id} initialScore={post.score} initialMyVote={post.my_vote} />
+                <span style={{ fontSize: '0.85rem', color: '#666' }}>{post.comment_count} comments</span>
             </div>
 
             <hr style={{ margin: '1rem 0' }} />
@@ -63,7 +65,7 @@ export default function PostDetailPage() {
 
             <div style={{ marginTop: '1rem' }}>
             {post.comments.map((comment) => (
-                <Comment key={comment.id} comment={comment} />
+                <Comment key={comment.id} comment={comment} postId={id} onReplyPosted={loadPost} />
             ))}
             </div>
         </div>
